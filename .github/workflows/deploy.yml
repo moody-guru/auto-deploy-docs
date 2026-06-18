@@ -7,7 +7,8 @@ on:
 
 env:
   REGISTRY: docker.io
-  IMAGE_NAME: ${{ secrets.DOCKER_HUB_USERNAME }}/devops-dashboard
+  DOCKER_USERNAME: ${{ secrets.DOCKER_HUB_USERNAME }}
+  IMAGE_NAME: devops-dashboard
   IMAGE_TAG: latest
 
 jobs:
@@ -35,10 +36,10 @@ jobs:
           context: .
           push: true
           tags: |
-            ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:${{ env.IMAGE_TAG }}
-            ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:${{ github.sha }}
-          cache-from: type=registry,ref=${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:buildcache
-          cache-to: type=registry,ref=${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:buildcache,mode=max
+            ${{ env.REGISTRY }}/${{ env.DOCKER_USERNAME }}/${{ env.IMAGE_NAME }}:${{ env.IMAGE_TAG }}
+            ${{ env.REGISTRY }}/${{ env.DOCKER_USERNAME }}/${{ env.IMAGE_NAME }}:${{ github.sha }}
+          cache-from: type=registry,ref=${{ env.REGISTRY }}/${{ env.DOCKER_USERNAME }}/${{ env.IMAGE_NAME }}:buildcache
+          cache-to: type=registry,ref=${{ env.REGISTRY }}/${{ env.DOCKER_USERNAME }}/${{ env.IMAGE_NAME }}:buildcache,mode=max
 
   deploy:
     needs: build-and-push
@@ -62,7 +63,7 @@ jobs:
 
             # Pull the latest image from Docker Hub
             echo "Pulling latest image from Docker Hub..."
-            docker pull ${{ secrets.DOCKER_HUB_USERNAME }}/devops-dashboard:latest
+            docker pull ${{ env.REGISTRY }}/${{ env.DOCKER_USERNAME }}/${{ env.IMAGE_NAME }}:${{ env.IMAGE_TAG }}
 
             # Run the new container detached on port 80
             echo "Starting new container..."
@@ -71,7 +72,7 @@ jobs:
               --name devops-dashboard \
               -p 80:80 \
               --restart always \
-              ${{ secrets.DOCKER_HUB_USERNAME }}/devops-dashboard:latest
+              ${{ env.REGISTRY }}/${{ env.DOCKER_USERNAME }}/${{ env.IMAGE_NAME }}:${{ env.IMAGE_TAG }}
 
             echo "Deployment completed successfully!"
             docker ps -a | grep devops-dashboard
