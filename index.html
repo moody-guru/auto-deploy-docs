@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Automated DevOps Pipeline Dashboard</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        .flow-box {
+            transition: all 0.3s ease;
+        }
+        .flow-box:hover {
+            transform: scale(1.05);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+        }
+        .arrow {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .arrow::after {
+            content: '→';
+            font-size: 2rem;
+            font-weight: bold;
+            color: #3b82f6;
+            animation: pulse 1.5s infinite;
+        }
+        @keyframes pulse {
+            0%, 100% {
+                opacity: 1;
+            }
+            50% {
+                opacity: 0.5;
+            }
+        }
+        .stage-card {
+            transition: all 0.3s ease;
+        }
+        .stage-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px rgba(59, 130, 246, 0.2);
+        }
+        .badge-pipeline {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        }
+    </style>
+</head>
+<body class="bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 text-white font-sans">
+    <div class="min-h-screen px-4 py-12">
+        <!-- Header -->
+        <div class="max-w-7xl mx-auto mb-16">
+            <div class="text-center">
+                <h1 class="text-5xl md:text-6xl font-bold mb-4 bg-gradient-to-r from-blue-400 to-purple-500 bg-clip-text text-transparent">
+                    Automated DevOps Pipeline Dashboard
+                </h1>
+                <p class="text-xl text-slate-300 mb-2">Seamless Deployment from Code to Cloud</p>
+                <div class="w-20 h-1 bg-gradient-to-r from-blue-400 to-purple-500 mx-auto rounded"></div>
+            </div>
+        </div>
+
+        <!-- Pipeline Flow Diagram -->
+        <div class="max-w-7xl mx-auto mb-16">
+            <div class="bg-slate-800 rounded-lg p-8 border border-slate-700">
+                <h2 class="text-2xl font-bold mb-8 text-center">Pipeline Architecture</h2>
+                
+                <div class="overflow-x-auto pb-4">
+                    <div class="flex items-center justify-between min-w-max gap-4 px-4">
+                        <!-- Stage 1: Local Code Changes -->
+                        <div class="flow-box bg-gradient-to-br from-green-500 to-green-600 rounded-lg p-6 w-40 h-32 flex flex-col items-center justify-center text-center cursor-pointer shadow-lg">
+                            <div class="text-3xl mb-2">💻</div>
+                            <div class="font-bold text-sm">Local Code Changes</div>
+                        </div>
+
+                        <div class="arrow w-12"></div>
+
+                        <!-- Stage 2: GitHub Push -->
+                        <div class="flow-box bg-gradient-to-br from-orange-500 to-orange-600 rounded-lg p-6 w-40 h-32 flex flex-col items-center justify-center text-center cursor-pointer shadow-lg">
+                            <div class="text-3xl mb-2">📤</div>
+                            <div class="font-bold text-sm">GitHub Push</div>
+                        </div>
+
+                        <div class="arrow w-12"></div>
+
+                        <!-- Stage 3: GitHub Actions Build & Push -->
+                        <div class="flow-box bg-gradient-to-br from-yellow-500 to-yellow-600 rounded-lg p-6 w-40 h-32 flex flex-col items-center justify-center text-center cursor-pointer shadow-lg">
+                            <div class="text-3xl mb-2">⚙️</div>
+                            <div class="font-bold text-sm">GitHub Actions Build & Push</div>
+                        </div>
+
+                        <div class="arrow w-12"></div>
+
+                        <!-- Stage 4: Docker Hub Registry -->
+                        <div class="flow-box bg-gradient-to-br from-blue-500 to-blue-600 rounded-lg p-6 w-40 h-32 flex flex-col items-center justify-center text-center cursor-pointer shadow-lg">
+                            <div class="text-3xl mb-2">🐳</div>
+                            <div class="font-bold text-sm">Docker Hub Registry</div>
+                        </div>
+
+                        <div class="arrow w-12"></div>
+
+                        <!-- Stage 5: SSH to AWS EC2 -->
+                        <div class="flow-box bg-gradient-to-br from-red-500 to-red-600 rounded-lg p-6 w-40 h-32 flex flex-col items-center justify-center text-center cursor-pointer shadow-lg">
+                            <div class="text-3xl mb-2">🔐</div>
+                            <div class="font-bold text-sm">SSH to AWS EC2</div>
+                        </div>
+
+                        <div class="arrow w-12"></div>
+
+                        <!-- Stage 6: Docker Container Run -->
+                        <div class="flow-box bg-gradient-to-br from-purple-500 to-purple-600 rounded-lg p-6 w-40 h-32 flex flex-col items-center justify-center text-center cursor-pointer shadow-lg">
+                            <div class="text-3xl mb-2">🚀</div>
+                            <div class="font-bold text-sm">Docker Container Run</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Stage Details Cards -->
+        <div class="max-w-7xl mx-auto">
+            <h2 class="text-2xl font-bold mb-8 text-center">Pipeline Stages Explained</h2>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <!-- Stage 1 Details -->
+                <div class="stage-card bg-slate-800 rounded-lg p-6 border border-slate-700 hover:border-green-500">
+                    <div class="flex items-center mb-4">
+                        <div class="text-3xl mr-3">💻</div>
+                        <h3 class="text-xl font-bold">Local Code Changes</h3>
+                    </div>
+                    <p class="text-slate-300 text-sm">
+                        Developer makes changes to the application code, tests locally, and prepares for deployment. All code modifications begin here before being pushed to the repository.
+                    </p>
+                </div>
+
+                <!-- Stage 2 Details -->
+                <div class="stage-card bg-slate-800 rounded-lg p-6 border border-slate-700 hover:border-orange-500">
+                    <div class="flex items-center mb-4">
+                        <div class="text-3xl mr-3">📤</div>
+                        <h3 class="text-xl font-bold">GitHub Push</h3>
+                    </div>
+                    <p class="text-slate-300 text-sm">
+                        Code changes are pushed to the GitHub repository on the main branch. This trigger event initiates the entire CI/CD pipeline automatically.
+                    </p>
+                </div>
+
+                <!-- Stage 3 Details -->
+                <div class="stage-card bg-slate-800 rounded-lg p-6 border border-slate-700 hover:border-yellow-500">
+                    <div class="flex items-center mb-4">
+                        <div class="text-3xl mr-3">⚙️</div>
+                        <h3 class="text-xl font-bold">GitHub Actions Build & Push</h3>
+                    </div>
+                    <p class="text-slate-300 text-sm">
+                        Automated workflow runs in GitHub Actions. It builds the Docker image, tags it with the commit hash or version, and pushes to Docker Hub registry.
+                    </p>
+                </div>
+
+                <!-- Stage 4 Details -->
+                <div class="stage-card bg-slate-800 rounded-lg p-6 border border-slate-700 hover:border-blue-500">
+                    <div class="flex items-center mb-4">
+                        <div class="text-3xl mr-3">🐳</div>
+                        <h3 class="text-xl font-bold">Docker Hub Registry</h3>
+                    </div>
+                    <p class="text-slate-300 text-sm">
+                        Docker image is stored in Docker Hub registry as a centralized, versioned artifact. Enables pulling the exact image version to EC2 when needed.
+                    </p>
+                </div>
+
+                <!-- Stage 5 Details -->
+                <div class="stage-card bg-slate-800 rounded-lg p-6 border border-slate-700 hover:border-red-500">
+                    <div class="flex items-center mb-4">
+                        <div class="text-3xl mr-3">🔐</div>
+                        <h3 class="text-xl font-bold">SSH to AWS EC2</h3>
+                    </div>
+                    <p class="text-slate-300 text-sm">
+                        Securely connects to the EC2 instance via SSH using stored credentials. Executes commands to stop old containers and prepare for the new deployment.
+                    </p>
+                </div>
+
+                <!-- Stage 6 Details -->
+                <div class="stage-card bg-slate-800 rounded-lg p-6 border border-slate-700 hover:border-purple-500">
+                    <div class="flex items-center mb-4">
+                        <div class="text-3xl mr-3">🚀</div>
+                        <h3 class="text-xl font-bold">Docker Container Run</h3>
+                    </div>
+                    <p class="text-slate-300 text-sm">
+                        Fresh Docker container is pulled from Docker Hub and runs on EC2 on port 80. Application is now live with the latest code changes deployed.
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Technology Stack -->
+        <div class="max-w-7xl mx-auto mt-16">
+            <div class="bg-slate-800 rounded-lg p-8 border border-slate-700">
+                <h2 class="text-2xl font-bold mb-6 text-center">Technology Stack</h2>
+                <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+                    <div class="bg-slate-700 rounded p-4 text-center">
+                        <div class="text-2xl mb-2">🐙</div>
+                        <p class="font-semibold">GitHub</p>
+                    </div>
+                    <div class="bg-slate-700 rounded p-4 text-center">
+                        <div class="text-2xl mb-2">⚡</div>
+                        <p class="font-semibold">GitHub Actions</p>
+                    </div>
+                    <div class="bg-slate-700 rounded p-4 text-center">
+                        <div class="text-2xl mb-2">🐳</div>
+                        <p class="font-semibold">Docker</p>
+                    </div>
+                    <div class="bg-slate-700 rounded p-4 text-center">
+                        <div class="text-2xl mb-2">☁️</div>
+                        <p class="font-semibold">AWS EC2</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Footer -->
+        <div class="max-w-7xl mx-auto mt-16 text-center text-slate-400 text-sm">
+            <p>Automated DevOps Pipeline | Continuous Integration & Deployment</p>
+        </div>
+    </div>
+</body>
+</html>
